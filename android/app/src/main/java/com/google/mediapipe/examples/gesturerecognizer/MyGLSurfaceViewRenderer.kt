@@ -10,19 +10,11 @@ import javax.microedition.khronos.opengles.GL10
 
 
 class MyGLSurfaceViewRenderer : GLSurfaceView.Renderer {
-    //    private lateinit var mTriangle: Triangle
     private var red = 0.0f
     private var green = 0.0f
     private var blue = 0.0f
 
-//    private var mTriangle: Triangle? = null
-//
-//    private var triangleX = 0.0f
-//    private var triangleY = 0.0f
-//    private var angle = 0.0f
-//
-//    private var velocityX = 0.1f // Adjust the velocity as needed
-//    private var velocityY = 0.1f
+
 
     var cubePositionX: Float = 0.0f
     var cubePositionY: Float = 0.0f
@@ -36,6 +28,22 @@ class MyGLSurfaceViewRenderer : GLSurfaceView.Renderer {
     private val scratchMatrix = FloatArray(16)
 
     private var angle = 0.0f
+
+    companion object {
+        fun loadShader(type: Int, shaderCode: String?): Int {
+            // create a vertex shader type (GLES20.GL_VERTEX_SHADER)
+            // or a fragment shader type (GLES20.GL_FRAGMENT_SHADER)
+
+            val shader = GLES20.glCreateShader(type)
+
+            // add the source code to the shader and compile it
+            GLES20.glShaderSource(shader, shaderCode)
+            GLES20.glCompileShader(shader)
+
+            return shader
+        }
+    }
+
 
     override fun onSurfaceCreated(gl: GL10, config: EGLConfig) {
         //CUBE RENDERING
@@ -61,10 +69,6 @@ class MyGLSurfaceViewRenderer : GLSurfaceView.Renderer {
         val ratio: Float = width.toFloat() / height.toFloat()
         Matrix.frustumM(projectionMatrix, 0, -ratio, ratio, -1.0f, 1.0f, 2.0f, 10.0f)
 
-
-        //TRIANGLE RENDERING
-//        Log.e("CHANGED", "width: $width, height: $height")
-//        GLES20.glViewport(0, 0, width, height);
     }
 
 
@@ -102,64 +106,5 @@ class MyGLSurfaceViewRenderer : GLSurfaceView.Renderer {
         cube?.draw(mvpMatrix)
 
     }
-
-    //TODO: handle the gesture filtering on the fragment to avoid useless rendering or return something here
-    fun setRendererVariable(gestureRecognizerResult: GestureRecognizerResult) {
-//        if (gestureRecognizerResult.gestures().size > 0) {
-//            Log.e(
-//                "SET RENDERER",
-//                "setRendererVariable: ${gestureRecognizerResult.gestures().toString()}"
-//            )
-//            if (gestureRecognizerResult.gestures()[0][0].categoryName().equals("Thumb_Up")) {
-//                    triangleY += 0.01f
-//            }
-//            if (gestureRecognizerResult.gestures()[0][0].categoryName().equals("Open_Palm")) {
-//                angle += 1f
-//            } else if (gestureRecognizerResult.gestures()[0][0].categoryName()
-//                    .equals("Thumb_Down")
-//            ) {
-//                    triangleY -= 0.01f
-//            } else if (gestureRecognizerResult.gestures()[0][0].categoryName()
-//                    .equals("Closed_Fist")
-//            ) {
-//                angle -= 1.0f
-//            } else {
-//                //DO NOTHING
-//            }
-//        }
-    }
-
-    companion object {
-        fun loadShader(type: Int, shaderCode: String?): Int {
-            // create a vertex shader type (GLES20.GL_VERTEX_SHADER)
-            // or a fragment shader type (GLES20.GL_FRAGMENT_SHADER)
-
-            val shader = GLES20.glCreateShader(type)
-
-            // add the source code to the shader and compile it
-            GLES20.glShaderSource(shader, shaderCode)
-            GLES20.glCompileShader(shader)
-
-            return shader
-        }
-    }
-
-    private fun updateTrianglePosition() {
-        // Update triangle position based on velocity
-//        triangleX += velocityX
-//        triangleY += velocityY
-//
-//        // Check boundaries and change direction if necessary
-//        if (triangleX >= 1.0f || triangleX <= -1.0f) {
-//            velocityX = -velocityX
-//        }
-//        if (triangleY >= 1.0f || triangleY <= -1.0f) {
-//            velocityY = -velocityY
-//        }
-
-        // Update triangle coordinates
-//        mTriangle?.updatePosition(triangleX, triangleY, angle)
-    }
-
 
 }

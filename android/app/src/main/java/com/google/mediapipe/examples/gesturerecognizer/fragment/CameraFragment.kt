@@ -82,13 +82,6 @@ class CameraFragment : Fragment(),
 
     override fun onResume() {
         super.onResume()
-        // Make sure that all permissions are still present, since the
-        // user could have removed them while the app was in paused state.
-//        if (!PermissionsFragment.hasPermissions(requireContext())) {
-//            Navigation.findNavController(
-//                requireActivity(), R.id.fragment_container
-//            ).navigate(R.id.action_camera_to_permissions)
-//        }
 
         // Start the GestureRecognizerHelper again when users come back
         // to the foreground.
